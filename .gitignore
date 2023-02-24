@@ -18,6 +18,8 @@
 /cluster-essentials.sh
 /eks-cluster-setup.sh
 /aks-cluster-setup.sh
+/tanzu-cluster-essentials
+/cluster-essentials.ps1
 /.idea/
 /gitops/tap-install-config.yml.tmp
 /gitops/tap-install-secrets.yml.tmp
