@@ -167,7 +167,7 @@ tanzu package installed list -n tap-install
 
 ####Step 7 - ReDeploy the kapp Application
 ```shell
-kapp deploy -a tap-install-gitops -f <(ytt -f gitops)
+kapp deploy -a tap-install-gitops -f '<'(ytt -f gitops)
 ```
 
 ####Step 8 - Retrieve Metadata Store Access Token and update gitops/tap-install-secrets.yml

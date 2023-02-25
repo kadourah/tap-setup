@@ -37,10 +37,6 @@ metadata:
   name: cosign-key-pair
   namespace: #@ data.values.tap.devNamespace
 type: Opaque
-data:
-  cosign.key: #@ data.values.tap.credentials.cosign.cosign_key
-  cosign.password: #@ data.values.tap.credentials.cosign.cosign_password
-  cosign.pub: #@ data.values.tap.credentials.cosign.cosign_pub
 immutable: true
 ---
 apiVersion: v1

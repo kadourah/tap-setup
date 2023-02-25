@@ -1,0 +1,166 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tap-install-gitops-sa
+  namespace: tap-install-gitops
+  annotations:
+    kapp.k14s.io/change-group: tap-install-gitops/rbac
+    kapp.k14s.io/change-rule: delete after deleting tap-install-gitops/app
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tap-install-gitops-cluster-role
+  annotations:
+    kapp.k14s.io/change-group: tap-install-gitops/rbac
+    kapp.k14s.io/change-rule: delete after deleting tap-install-gitops/app
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cluster-admin-cluster-role-binding
+  annotations:
+    kapp.k14s.io/change-group: tap-install-gitops/rbac
+    kapp.k14s.io/change-rule: delete after deleting tap-install-gitops/app
+subjects:
+- kind: ServiceAccount
+  name: tap-install-gitops-sa
+  namespace: default
+- kind: ServiceAccount
+  name: tap-install-gitops-sa
+  namespace: tap-install-gitops
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tap-install-gitops-cluster-role
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tap-install-gitops
+  namespace: tap-install-gitops
+data:
+  tap-config.yml: |
+    tap:
+      catalogs:
+      - https://github.com/tanzu-corp/tap-catalog/blob/main/catalog-info.yaml
+      registry:
+        username: tapkadourahregistry
+        password: YVGHrKp4UD4wJFUKiuZUEbTC075TKgoBcpRezo7kHV+ACRD7aPbN
+        repositories:
+          buildService: tanzu/tanzu-build-service
+          ootbSupplyChain: tanzu/tanzu-supply-chain
+      domains:
+        main: tap.tanzu.y-compiles.com
+        tapGui: tap-gui.tap.tanzu.y-compiles.com
+        learningCenter: learningcenter.tap.tanzu.y-compiles.com
+        knative: apps.tap.tanzu.y-compiles.com
+        appliveview: appliveview.tap.tanzu.y-compiles.com
+        metadataStore: metadata-store.tap.tanzu.y-compiles.com
+      maven:
+        url: http://acf751aab6dd740249a2bb15c7fae453-573253837.us-east-2.elb.amazonaws.com:8081/repository/SmcMavenDev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tap-install-gitops
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tap-install-gitops-github
+  namespace: tap-install-gitops
+stringData:
+  username: github
+  password: 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
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tap-install-gitops
+  namespace: tap-install-gitops
+stringData:
+  tap-secrets.yml: |
+    tap:
+      credentials:
+        tanzuNet:
+          username: kkadourah@vmware.com
+          password: 35TMBrDO!
+        registry:
+          username: tapkadourahregistry
+          password: YVGHrKp4UD4wJFUKiuZUEbTC075TKgoBcpRezo7kHV+ACRD7aPbN
+        github:
+          username: kadourah
+          clientId: 3181801477ce9c6f204e
+          clientSecret: ddba9865705745ffa72a4601ed029f0afc54fe11
+          token: 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
+        letsencrypt:
+          email: kkadourah@vmware.com
+        snyk:
+          token: REDACTED
+        carbon_black_scanner:
+          cbc_api_id: NRCWTRSW1V
+          cbc_api_key: BJTYM3A5IAAEWBKSU5JBW7L7
+          cbc_org_key: EWPT25DZR
+          cbc_saas_url: https://defense-test03.cbdtest.io/containers
+        customize:
+          custom_name: ' '
+          org_name: Enterprise Engineering
+        catalogs:
+        - type: url
+          target: https://github.com/ynamadi/preference-api/blob/main/catalog/catalog-info.yaml
+        - type: url
+          target: https://github.com/ynamadi/claims-api/blob/main/catalog/catalog-info.yaml
+        - type: url
+          target: https://github.com/ynamadi/billing-api/blob/main/catalog/catalog-info.yaml
+        - type: url
+          target: https://github.com/ynamadi/tanzu-java-web-app/blob/main/catalog/catalog-info.yaml
+        - type: url
+          target: https://github.com/ynamadi/tech-docs/blob/master/location.yaml
+        - type: url
+          target: https://github.com/kirtiapte/spring-cloud-demo-tap/blob/main/tap/catalog/catalog-info.yaml
+        metadataStore:
+          accessToken: REDACTED
+        backstage-disabled:
+          database:
+            client: pg
+            host: INSERT-DB-HOST
+            port: 5432
+            username: INSERT-DB-USERNAME
+            password: INSERT-DB-PASSWORD
+---
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+metadata:
+  name: tap-install-gitops
+  namespace: tap-install-gitops
+  annotations:
+    kapp.k14s.io/change-group: tap-install-gitops/app
+    kapp.k14s.io/change-rule: upsert after upserting tap-install-gitops/rbac
+spec:
+  serviceAccountName: tap-install-gitops-sa
+  fetch:
+  - git:
+      url: https://github.com/kadourah/tap-setup
+      ref: origin/main
+      secretRef:
+        name: tap-install-gitops-github
+  template:
+  - ytt:
+      paths:
+      - config
+      - config-full
+      valuesFrom:
+      - configMapRef:
+          name: tap-install-gitops
+      - secretRef:
+          name: tap-install-gitops
+  deploy:
+  - kapp: {}
