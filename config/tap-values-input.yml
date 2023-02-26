@@ -8,7 +8,7 @@ tap:
   catalogs: []
 
   registry:
-    host: tapbuild.azurecr.io
+    host: tapkadourahregistry.azurecr.io
     repositories:
       buildService: repo/build-service
       ootbSupplyChain: repo/supply-chain
