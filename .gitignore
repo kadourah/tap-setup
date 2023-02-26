@@ -13,6 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+/gitops/tap-install-plain.yml
 /gitops/tap-install-config.yml.tmp
 /gitops/tap-install-secrets.yml.tmp
 /cluster-essentials.sh
