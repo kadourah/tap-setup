@@ -4,7 +4,7 @@ carbonBlack:
   configSecret:
     name: carbonblack-token-secret
 metadataStore:
-  url: "https://metadata-store.tap.tanzu.y-compiles.com"
+  url: "https://metadata-store.tap.tanzu.kadourah.com"
   caSecret:
     importFromNamespace: ""
   authSecret:

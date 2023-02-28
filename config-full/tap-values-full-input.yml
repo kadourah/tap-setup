@@ -6,14 +6,14 @@ tap:
   devNamespace: tap-dev
 
   domains:
-    learningCenter: learningcenter.tap.tanzu.y-compiles.com
-    knative: apps.tap.tanzu.y-compiles.com
-    metadataStore: metadata-store.tap.tanzu.y-compiles.com
+    learningCenter: learningcenter.tap.tanzu.kadourah.com
+    knative: apps.tap.tanzu.kadourah.com
+    metadataStore: metadata-store.tap.tanzu.kadourah.com
     appliveview:
-          host: appliveview.tap.tanzu.y-compiles.com
+          host: appliveview.tap.tanzu.kadourah.com
           port: 443
 
-domain: tap.tanzu.y-compiles.com
+domain: tap.tanzu.kadourah.com
 tls:
   secretName: tls
   namespace: tanzu-system-ingress

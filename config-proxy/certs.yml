@@ -3,17 +3,17 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: y-compiles.com
+  name: kadourah.com
   namespace: tanzu-system-ingress
 spec:
   secretName: tls
   privateKey:
       rotationPolicy: Always
   dnsNames:
-    - '*.apps.tap.tanzu.y-compiles.com'
-    - 'tap-gui.tap.tanzu.y-compiles.com'
-    - 'metadata-store.tap.tanzu.y-compiles.com'
-    - 'learning-center-guided.learningcenter.tap.tanzu.y-compiles.com'
+    - '*.apps.tap.tanzu.kadourah.com'
+    - 'tap-gui.tap.tanzu.kadourah.com'
+    - 'metadata-store.tap.tanzu.kadourah.com'
+    - 'learning-center-guided.learningcenter.tap.tanzu.kadourah.com'
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

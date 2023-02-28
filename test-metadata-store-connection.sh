@@ -1,4 +1,4 @@
-export METADATA_STORE_URL="metadata-store.tap.tanzu.y-compiles.com"
+export METADATA_STORE_URL="metadata-store.tap.tanzu.kadourah.com"
 nslookup $METADATA_STORE_URL
 curl "https://${METADATA_STORE_URL}/api/health" -k -v
 
