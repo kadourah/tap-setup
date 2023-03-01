@@ -32,3 +32,4 @@ insight-ca.crt
 /custom-supply-chains/source-to-url.yaml
 custom-supply-chains/source-test-to-url.yaml
 /azure-dns-setup.ps1
+/gitops/cloudflare-secret.yml
