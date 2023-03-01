@@ -15,7 +15,7 @@ spec:
     - 'metadata-store.tap.tanzu.kadourah.com'
     - 'learning-center-guided.learningcenter.tap.tanzu.kadourah.com'
   issuerRef:
-    name: letsencrypt-production
+    name: cloudflare-issuer
     kind: ClusterIssuer
 
 ---
