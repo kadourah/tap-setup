@@ -15,4 +15,4 @@ spec:
           email: "kadourah@gmail.com"
           apiKeySecretRef:
             name: cloudflare-api-key-secret
-            key: api-key
+            key: api-token
