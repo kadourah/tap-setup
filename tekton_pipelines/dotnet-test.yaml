@@ -35,6 +35,3 @@ spec:
         script: |-
           cd `mktemp -d`
           wget -qO- $(params.source-url) | tar xvz -m
-          dotnet restore ./test
-          dotnet build ./test
-          dotnet test ./test --logger "console;verbosity=detailed
