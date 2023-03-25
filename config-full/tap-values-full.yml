@@ -35,8 +35,8 @@ ootb_supply_chain_testing_scanning:
     ssh_secret: git-ssh
   scanning:
     image:
-      template: private-image-scan-template
-      policy: grype-scan-policy
+      template: snyk-private-image-scan-template
+      policy:  private-image-scan-template
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
