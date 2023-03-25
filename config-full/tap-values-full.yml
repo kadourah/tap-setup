@@ -36,7 +36,7 @@ ootb_supply_chain_testing_scanning:
   scanning:
     image:
       template: snyk-private-image-scan-template
-      policy:  private-image-scan-template
+      policy:  grype-scan-policy
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
