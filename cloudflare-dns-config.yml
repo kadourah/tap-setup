@@ -13,6 +13,6 @@ spec:
     - dns01:
         cloudflare:
           email: "kadourah@gmail.com"
-          apiKeySecretRef:
+          apiTokenSecretRef:
             name: cloudflare-api-key-secret
             key: api-token
