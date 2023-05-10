@@ -28,3 +28,4 @@
 insight-ca.crt
 /custom-supply-chains/source-to-url.yaml
 custom-supply-chains/source-test-to-url.yaml
+tanzu-cluster-essentials

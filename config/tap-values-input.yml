@@ -10,7 +10,7 @@ tap:
     host: registry.tanzu.vmware.com
 
   registry:
-    host: tapbuild.azurecr.io
+    host: tapkadourahregistry.azurecr.io
     repositories:
       buildService: repo/build-service
       ootbSupplyChain: repo/supply-chain
