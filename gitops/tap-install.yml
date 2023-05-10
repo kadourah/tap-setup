@@ -11,7 +11,7 @@ spec:
   fetch:
   - git:
       url: https://github.com/kadourah/tap-setup
-      ref: origin/main
+      ref: origin/tap-setup-dev
       secretRef:
         name: tap-install-gitops-github
   template:
@@ -42,8 +42,8 @@ spec:
   serviceAccountName: tap-install-gitops-sa
   fetch:
   - git:
-      url: https://github.com/ynamadi/tap-setup
-      ref: origin/main
+      url: https://github.com/kadourah/tap-setup
+      ref: origin/tap-setup-dev
       secretRef:
         name: tap-install-gitops-github
   template:
