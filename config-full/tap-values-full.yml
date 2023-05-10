@@ -35,8 +35,8 @@ ootb_supply_chain_testing_scanning:
     ssh_secret: git-ssh
   scanning:
     image:
-      template: snyk-private-image-scan-template
-      policy: snyk-scan-policy
+      template: private-image-scan-template
+      policy:  scan-policy
 
 learningcenter:
   ingressDomain: #@ data.values.tap.domains.learningCenter
@@ -54,17 +54,6 @@ tap_gui:
     #!customize:
       #!custom_logo: #@ data.values.tap.credentials.customize.custom_logo
       #!custom_name: #@ data.values.tap.credentials.customize.custom_name
-    techdocs:
-      builder: 'external'
-      publisher:
-        type: 'awsS3'
-        awsS3:
-          bucketName: #@ data.values.tap.credentials.aws_s3.bucketName
-          credentials:
-            accessKeyId: #@ data.values.tap.credentials.aws_s3.accessKeyId
-            secretAccessKey: #@ data.values.tap.credentials.aws_s3.secretAccessKey
-          region: #@ data.values.tap.credentials.aws_s3.region
-          s3ForcePathStyle: false
     proxy:
       /metadata-store:
         target: https://metadata-store-app.metadata-store:8443/api/v1
