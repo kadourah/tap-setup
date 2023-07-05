@@ -22,8 +22,16 @@ Make sure [Cluster Essentials for VMware Tanzu is deployed to your cluster](http
 
 You don't need to use the `tanzu` CLI to apply the configuration with a GitOps approach:
 all `tanzu` commands described in the documentation have been integrated as YAML definitions.
+###Pre-req
 
-####Step 1 -  Remove **config-proxy** and **post-install** scripts from the initial install
+### Step 1 - Install AKS Cluster
+
+run `.\create-cluster.ps1` under iac folder
+
+### Step 2 - Create Registery
+create registry `tapfullkadourahregistry.azurecr.io`
+
+#### Step 1 -  Remove **config-proxy** and **post-install** scripts from the initial install
 **Note:** 
 - _In **gitops/tap-install.yml** remove **- config-proxy** and **- post-install** from template.ytt.paths and push to github._ 
 - _During the installation there is a pre-check that happens for Contour resources in order to apply the proxy configuration, since contour is not available yet, we will need to wait for it to be installed before we can apply the proxy configurations._
