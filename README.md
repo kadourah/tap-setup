@@ -31,6 +31,22 @@ run `.\create-cluster.ps1` under iac folder
 ### Step 2 - Create Registery
 create registry `tapfullkadourahregistry.azurecr.io`
 
+### step 3 - install cluster essentials
+make sure you open command prompt and not powershell prompt.
+set INSTALL_BUNDLE=<cluster-essnetials-link>
+set INSTALL_REGISTRY_HOSTNAME=registry.tanzu.vmware.com
+set INSTALL_REGISTRY_USERNAME=<tanzu-username>
+set INSTALL_REGISTRY_PASSWORD=<PASSWORD>
+`cd tanzu-cluster-essentials`
+`install.bat`
+
+####Step 4 - Deploy the kapp Application
+```shell
+ytt -f gitops | kapp deploy -a tap-install-gitops -f- --yes
+```
+#### Step 5 - Configure proxy
+ get proxy using ```kubectl get svc -n tanzu-system-ingress```
+
 #### Step 1 -  Remove **config-proxy** and **post-install** scripts from the initial install
 **Note:** 
 - _In **gitops/tap-install.yml** remove **- config-proxy** and **- post-install** from template.ytt.paths and push to github._ 
@@ -149,10 +165,7 @@ stringData:
   tap-secrets.yml: #@ yaml.encode(config())
 ```
 
-####Step 4 - Deploy the kapp Application
-```shell
-kapp deploy -a tap-install-gitops -f <(ytt -f gitops)
-```
+
 
 ####Step 5 - Check to make sure the Tanzu packages have started Reconciling. 
 ```shell
@@ -199,3 +212,11 @@ As a part of the Out-Of-The-Box Supply Chain with Testing and Scanning you will 
 
 
 For more information visit [ScanPolicy](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-scc-ootb-supply-chain-testing-scanning.html#scan-policy)
+
+### Troubleshooting Steps
+### if you face 
+   ``` Reconcile failed:  (message:
+    Deploying: Error (see
+   .status.usefulErrorMessage for
+    details))```
+kubectl get app/tap-install-gitops -n tap-install-gitops -o yaml
