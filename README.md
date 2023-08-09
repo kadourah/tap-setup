@@ -193,8 +193,9 @@ kapp deploy -a tap-install-gitops -f <(ytt -f gitops)
 
 ####Step 8 - Retrieve Metadata Store Access Token and update gitops/tap-install-secrets.yml
 ```shell
-export METADATA_STORE_ACCESS_TOKEN=$(kubectl get secrets -n metadata-store -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='metadata-store-read-client')].data.token}" | base64 -d)
+kubectl get secrets metadata-store-read-write-client -n metadata-store -o jsonpath="{.data.token}"
 ```
+ [Decode the token to](https://www.base64decode.org/) 
 
 Example:
 ```yaml
@@ -213,6 +214,14 @@ As a part of the Out-Of-The-Box Supply Chain with Testing and Scanning you will 
 
 For more information visit [ScanPolicy](https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-scc-ootb-supply-chain-testing-scanning.html#scan-policy)
 
+### to get live view
+get the token
+```az acr login -n tapfullkadourahregistry.azurecr.io --expose-token```
+docker login
+```docker login tapfullkadourahregistry.azurecr.io```
+username: 00000000-0000-0000-0000-000000000000
+password: token above
+install vscode developer tools
 ### Troubleshooting Steps
 ### if you face 
    ``` Reconcile failed:  (message:
