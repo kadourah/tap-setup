@@ -36,7 +36,7 @@ make sure you open command prompt and not powershell prompt.
 set INSTALL_BUNDLE=<cluster-essnetials-link>
 set INSTALL_REGISTRY_HOSTNAME=registry.tanzu.vmware.com
 set INSTALL_REGISTRY_USERNAME=<tanzu-username>
-set INSTALL_REGISTRY_PASSWORD=<PASSWORD>
+<PASSWORD>
 `cd tanzu-cluster-essentials`
 `install.bat`
 
